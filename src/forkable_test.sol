@@ -12,12 +12,11 @@ contract ForkableDatastoreTest is Test {
         assertEq(uint(branch1), 1);
         data.set(branch1, "key1", "val1");
         data.set(branch1, "key2", "val2");
-/*
+        assertEq32(data.get(branch1, "key1"), "val1");
         var branch2 = data.fork(1);
         data.set(branch1, "key1", "val1.1");
         assertEq(uint(branch2), 2);
-        assertEq32(data.get(branch1, "key1"), "val1");
-        assertEq32(data.get(branch2, "key2"), "val2");
-*/
+        assertEq32(data.get(branch1, "key1"), "val1.1");
+        assertEq32(data.get(branch2, "key1"), "val1");
     }
 }
