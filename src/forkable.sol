@@ -58,7 +58,7 @@ contract ForkableDatastoreService is DSBase {
         node.writes[key].live = true;
     }
     // Resolving a node means either returning its value (if it is live or branch 0),
-    // or resolving its parent and copying the value to itself and its sibling.
+    // or resolving its parent and copying the value to itself and its sibling (if one exists)
     function resolve(uint64 node_id, bytes32 key) returns (bytes32) {
         var node = _nodes[node_id];
         var entry = node.writes[key];
