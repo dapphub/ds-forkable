@@ -31,8 +31,8 @@ contract ForkableDatastoreService is DSBase {
         // Left is old branch, right is new branch
         // Forking branch 0 creates a "quasi-root" with no sibling
         uint64 left_id = 0;
-        Node memory left = Node({parent: 0, sibling: 0});
         if( branch_name != 0 ) {
+            Node memory left = Node({parent: 0, sibling: 0});
             left_id = _next_node++;
             left = Node({parent: parent_id, sibling: right_id});
             _nodes[left_id] = left;
@@ -69,11 +69,13 @@ contract ForkableDatastoreService is DSBase {
                 return 0;
             }
             var sibling = _nodes[node.sibling];
+            var parent = _nodes[node.parent];
             var value = resolve(node.parent, key);
             node.writes[key].value = value;
             node.writes[key].live = true;
             sibling.writes[key].value = value;
             sibling.writes[key].value = value;
+            // delete parent.writes[key];
             return value;
         }
         throw;
